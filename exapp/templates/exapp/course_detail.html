@@ -1,0 +1,78 @@
+
+{% extends 'exapp/index.html'%}
+{%block main_content%}
+<h1>Это курс {{course.id}}</h1>
+{{request.user}}
+{%if request.user.is_authenticated%}
+<a href="{{course.get_update_url}}" class="btn btn-success"> изменить</a>
+{%endif%}
+<div class="course_img">
+<img src="{{course.img.url}}">
+</div>
+{{course.text}}
+<hr>
+<ol>
+{% for e in course.exersise_set.all%}
+<!-- Button trigger modal -->
+<li class="exersise_item"  data-bs-toggle="modal" data-bs-target="#exersise_moda_{{e.id}}">
+    {{e.name}}
+</li>
+{%endfor %}
+</ol>
+
+<h2> Зачетная таблица</h2>
+{% for e in course.exersise_set.all%}
+<!-- Modal -->
+<div class="modal fade" id="exersise_moda_{{e.id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">{{e.name}}</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+          {{e.text}}
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+{% endfor%}
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>Студент</th>
+            {% for e in exersise_list%}
+                <th data-bs-toggle="modal" data-bs-target="#exersise_moda_{{e.id}}"> {{e.name}}</th>
+{% endfor%}
+        </tr>
+    </thead>
+    <tbody>
+        {% for student in student_list%}
+        <tr>
+            {% for  item in student%}
+            <td> 
+
+                {% if forloop.counter0 == 0  %}
+
+                {{item}}
+                {%else %}
+                    {% if item  %}
+    <i class="bi bi-check2-square"></i>
+                    {%else%}
+    <i class="bi bi-incognito"></i>
+                    {%endif%}
+                {%endif%}
+
+            </td>
+            {%endfor%}
+        </tr>
+       {%endfor%}
+
+    </tbody>
+</table>
+
+{% endblock%}

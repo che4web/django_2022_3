@@ -1,0 +1,16 @@
+
+{% extends 'exapp/index.html'%}
+{%block main_content%}
+<h1>Это курс {{course.id}}</h1>
+<form method="POST">
+    {% csrf_token %}
+    {{form.as_p}}
+    <button class="btn btn-primary"> Сохраниьт </button>
+</form>
+<div class="course_img">
+<img src="{{course.img.url}}">
+</div>
+{{course.text}}
+<hr>
+
+{% endblock%}

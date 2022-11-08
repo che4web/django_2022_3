@@ -1,0 +1,11 @@
+.exersise_item{
+cursor: pointer;
+}
+.card_img{
+height: 200px;
+overflow: hidden;
+}
+.course_img{
+    margin:0 auto;
+    width:400px
+}

@@ -1,0 +1,22 @@
+{% extends 'exapp/index.html'%}
+{%block main_content%}
+<form>
+    {{form.as_p}}
+    <button class="btn btn-primary"> поиск</button>
+</form>
+<div class="row row-cols-1 row-cols-md-3 g-4">
+    {% for x in course_list%}
+    <div class="col">
+        <div class="card h-100" >
+                <img src="{{x.img.preview.url}}" class="card-img-top" alt="...">
+            <div class="card-body">
+                <h5 class="card-title">{{x.name|upper}}</h5>
+                <p class="card-text">{{x.text | truncatechars:100 }}</p>
+                <a href="{{x.get_absolute_url}}" class="btn btn-primary">Go somewhere</a>
+            </div>
+        </div>
+    </div>
+    {%endfor%}
+</div>
+
+{%endblock%}
